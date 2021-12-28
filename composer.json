@@ -1,0 +1,23 @@
+{
+    "name": "xofttion/jwt",
+    "type": "library",
+    "license": "MIT",
+    "description": "Proyecto que contiene la implementación de JWT",
+    "keywords": [
+        "xofttion",
+        "jwt",
+        "laravel"
+    ],
+    "authors": [
+        {
+            "name": "Daniel Andres Castillo Pedroza",
+            "email": "ing.dacastillop@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Xofttion\\JWT\\": "src/"
+        }
+    }
+}
