@@ -65,7 +65,24 @@ class Sign
 
     private static function verifySSL(Token $token, DecodeConfig $config, Algorithm $alg): bool
     {
-        return true;
+        list($headerb64, $payloadb64) = $token->getSegments();
+
+        $value = "{$headerb64}.{$payloadb64}";
+        $sign = $token->getSign();
+        $key = $config->getKey();
+        $algorithm = $alg->getName();
+
+        $success = openssl_verify($value, $sign, $key, $algorithm);
+
+        if ($success === 1) {
+            return true;
+        } elseif ($success === 0) {
+            return false;
+        } else {
+            $errors = openssl_error_string();
+
+            throw new DomainException("OpenSSL error: {$errors}");
+        }
     }
 
     private static function signHMAC(string $value, string $key, Algorithm $alg): string
