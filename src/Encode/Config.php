@@ -18,7 +18,7 @@ class Config
 
     // Constructor de la clase Config
 
-    public function __construct(array $payload, string $key, string $method = 'HMAC_SHA256')
+    public function __construct(array $payload, string $key, string $method = 'HS256')
     {
         $this->payload = $payload;
         $this->key = $key;

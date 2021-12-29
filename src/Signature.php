@@ -6,19 +6,19 @@ class Signature
 {
     // Constantes de la clase Signature
 
-    public const HMAC_SHA256 = 'HMAC_SHA256';
+    public const HMAC_SHA256 = 'HS256';
 
-    public const HMAC_SHA384 = 'HMAC_SHA384';
+    public const HMAC_SHA384 = 'HS384';
 
-    public const HMAC_SHA512 = 'HMAC_SHA512';
+    public const HMAC_SHA512 = 'HS512';
 
-    public const RSASSA_SHA256 = 'RSASSA_SHA256';
+    public const RSASSA_SHA256 = 'RS256';
 
-    public const RSASSA_SHA384 = 'RSASSA_SHA384';
+    public const RSASSA_SHA384 = 'RS384';
 
-    public const RSASSA_SHA512 = 'RSASSA_SHA512';
+    public const RSASSA_SHA512 = 'RS512';
 
-    public const ECDSA_SHA256 = 'ECDSA_SHA256';
+    public const ECDSA_SHA256 = 'ES256';
 
     // Atributos de la clase Signature
 
@@ -48,9 +48,9 @@ class Signature
 
     // Métodos estáticos de la clase Signature
 
-    public static function factory(string $alg): ?Signature
+    public static function factory(string $name): ?Signature
     {
-        switch ($alg) {
+        switch ($name) {
             case (static::HMAC_SHA256):
                 return new Signature('hash_hmac', 'SHA256');
 
