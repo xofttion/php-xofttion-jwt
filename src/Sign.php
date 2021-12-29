@@ -47,7 +47,7 @@ class Sign
         $signature = Signature::factory($name);
 
         if (is_null($signature)) {
-            throw new DomainException('Signature method config not supported');
+            throw new DomainException("Signature method {$name} config not supported");
         }
 
         return $signature;
