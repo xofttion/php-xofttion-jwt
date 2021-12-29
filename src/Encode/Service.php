@@ -7,6 +7,8 @@ use Xofttion\JWT\Sign;
 
 class Service
 {
+    // Métodos estáticos de la clase Service
+
     public static function rfc7519(Config $config): string
     {
         $header = static::header($config);
@@ -30,7 +32,7 @@ class Service
     {
         $header = [
             'typ' => 'JWT',
-            'alg' => $config->getAlg()
+            'alg' => $config->getMethod()
         ];
 
         if (!is_null($config->getId())) {
