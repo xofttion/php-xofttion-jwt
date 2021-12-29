@@ -3,22 +3,23 @@
 namespace Xofttion\JWT;
 
 use DomainException;
-use Xofttion\JWT\Algorithm;
 use Xofttion\JWT\Decode\Config as DecodeConfig;
 use Xofttion\JWT\Encode\Config as EncodeConfig;
 
 class Sign
 {
+    // Métodos estáticos de la clase Sign
+
     public static function generate(string $value, EncodeConfig $config): ?string
     {
-        $algorithm = static::algorithm($config->getAlg());
+        $signature = static::method($config->getMethod());
 
-        switch ($algorithm->getMethod()) {
+        switch ($signature->getName()) {
             case ('hash_hmac'):
-                return static::signHMAC($value, $config->getKey(), $algorithm);
+                return static::signHMAC($value, $config->getKey(), $signature);
 
             case ('openssl'):
-                return static::signSSL($value, $config->getKey(), $algorithm);
+                return static::signSSL($value, $config->getKey(), $signature);
 
             default:
                 return null;
@@ -27,52 +28,52 @@ class Sign
 
     public static function verify(Token $token, DecodeConfig $config): bool
     {
-        $algorithm = static::algorithm($token->getHeader()->alg);
+        $signature = static::method($token->getHeader()->alg);
 
-        switch ($algorithm->getMethod()) {
+        switch ($signature->getName()) {
             case ('hash_hmac'):
-                return static::verifyHMAC($token, $config, $algorithm);
+                return static::verifyHMAC($token, $config, $signature);
 
             case ('openssl'):
-                return static::verifySSL($token, $config, $algorithm);
+                return static::verifySSL($token, $config, $signature);
 
             default:
                 return false;
         }
     }
 
-    private static function algorithm(string $name): Algorithm
+    private static function method(string $name): Signature
     {
-        $algorithm = Algorithm::factory($name);
+        $signature = Signature::factory($name);
 
-        if (is_null($algorithm)) {
-            throw new DomainException('Algorithm config not supported');
+        if (is_null($signature)) {
+            throw new DomainException('Signature method config not supported');
         }
 
-        return $algorithm;
+        return $signature;
     }
 
-    private static function verifyHMAC(Token $token, DecodeConfig $config, Algorithm $alg): bool
+    private static function verifyHMAC(Token $token, DecodeConfig $config, Signature $sign): bool
     {
         list($headerb64, $payloadb64) = $token->getSegments();
 
         $value = "{$headerb64}.{$payloadb64}";
 
-        $hash = static::signHMAC($value, $config->getKey(), $alg);
+        $hash = static::signHMAC($value, $config->getKey(), $sign);
 
         return hash_equals($hash, $token->getSign());
     }
 
-    private static function verifySSL(Token $token, DecodeConfig $config, Algorithm $alg): bool
+    private static function verifySSL(Token $token, DecodeConfig $config, Signature $sign): bool
     {
         list($headerb64, $payloadb64) = $token->getSegments();
 
         $value = "{$headerb64}.{$payloadb64}";
-        $sign = $token->getSign();
+        $signToken = $token->getSign();
         $key = $config->getKey();
-        $algorithm = $alg->getName();
+        $algorithm = $sign->getAlgorithm();
 
-        $success = openssl_verify($value, $sign, $key, $algorithm);
+        $success = openssl_verify($value, $signToken, $key, $algorithm);
 
         if ($success === 1) {
             return true;
@@ -85,19 +86,19 @@ class Sign
         }
     }
 
-    private static function signHMAC(string $value, string $key, Algorithm $alg): string
+    private static function signHMAC(string $value, string $key, Signature $sign): string
     {
-        return hash_hmac($alg->getName(), $value, $key, true);
+        return hash_hmac($sign->getAlgorithm(), $value, $key, true);
     }
 
-    private static function signSSL(string $value, string $key, Algorithm $alg): string
+    private static function signSSL(string $value, string $key, Signature $sign): string
     {
-        $success = openssl_sign($value, $signature, $key, $alg->getName());
+        $success = openssl_sign($value, $signValue, $key, $sign->getAlgorithm());
 
         if (!$success) {
             throw new DomainException('OpenSSL unable to sign data');
         }
 
-        return $signature;
+        return $signValue;
     }
 }

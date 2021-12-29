@@ -9,6 +9,8 @@ use Xofttion\JWT\Exceptions\SignatureInvalidException;
 
 class Service
 {
+    // Métodos estáticos de la clase Service
+
     public static function rfc7519(Config $config): Token
     {
         $segments = static::getSegments($config);

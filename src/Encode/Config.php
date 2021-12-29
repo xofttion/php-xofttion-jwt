@@ -4,22 +4,28 @@ namespace Xofttion\JWT\Encode;
 
 class Config
 {
+    // Atributos de la clase Config
+
     private $payload;
 
     private $key;
 
-    private $alg;
+    private $method;
 
     private $id;
 
     private $headers;
 
-    public function __construct(array $payload, string $key, string $alg = 'HS256')
+    // Constructor de la clase Config
+
+    public function __construct(array $payload, string $key, string $method = 'HMAC_SHA256')
     {
         $this->payload = $payload;
         $this->key = $key;
-        $this->alg = $alg;
+        $this->method = $method;
     }
+
+    // Métodos de la clase Config
 
     public function getPayload(): array
     {
@@ -31,9 +37,9 @@ class Config
         return $this->key;
     }
 
-    public function getAlg(): string
+    public function getMethod(): string
     {
-        return $this->alg;
+        return $this->method;
     }
 
     public function setId(?string $id): void
