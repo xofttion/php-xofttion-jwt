@@ -6,23 +6,30 @@ class Config
 {
     // Atributos de la clase Config
 
-    private $payload;
+    private array $payload;
 
-    private $key;
+    private string $key;
 
-    private $method;
+    private string $method;
 
-    private $id;
+    private ?string $id;
 
-    private $headers;
+    private ?array $headers;
 
     // Constructor de la clase Config
 
-    public function __construct(array $payload, string $key, string $method = 'HS256')
-    {
+    public function __construct(
+        array $payload,
+        string $key,
+        string $method = 'HS256',
+        ?string $id = null,
+        ?array $headers = null
+    ) {
         $this->payload = $payload;
         $this->key = $key;
         $this->method = $method;
+        $this->id = $id;
+        $this->headers = $headers;
     }
 
     // Métodos de la clase Config
@@ -42,19 +49,9 @@ class Config
         return $this->method;
     }
 
-    public function setId(?string $id): void
-    {
-        $this->id = $id;
-    }
-
     public function getId(): ?string
     {
         return $this->id;
-    }
-
-    public function setHeaders(?array $headers): void
-    {
-        $this->headers = $headers;
     }
 
     public function getHeaders(): ?array
