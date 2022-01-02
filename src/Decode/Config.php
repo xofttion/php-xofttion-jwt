@@ -6,9 +6,9 @@ class Config
 {
     // Atributos de la clase Config
 
-    private $token;
+    private string $token;
 
-    private $key;
+    private string $key;
 
     // Constructor de la clase Config
 

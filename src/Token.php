@@ -8,18 +8,22 @@ class Token
 {
     // Atributos de la clase Token
 
-    private $segments;
+    private array $segments;
 
-    private $header;
+    private stdClass $header;
 
-    private $payload;
+    private stdClass $payload;
 
-    private $sign;
+    private string $sign;
 
     // Constructor de la clase Token
 
-    public function __construct(array $segments, stdClass $header, stdClass $payload, string $sign)
-    {
+    public function __construct(
+        array $segments,
+        stdClass $header,
+        stdClass $payload,
+        string $sign
+    ) {
         $this->segments = $segments;
         $this->header = $header;
         $this->payload = $payload;

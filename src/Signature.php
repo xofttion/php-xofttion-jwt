@@ -22,9 +22,9 @@ class Signature
 
     // Atributos de la clase Signature
 
-    private $name;
+    private string $name;
 
-    private $algorithm;
+    private string $algorithm;
 
     // Constructor de la clase Signature
 
