@@ -4,8 +4,6 @@ namespace Xofttion\JWT\Encode;
 
 class Config
 {
-    // Atributos de la clase Config
-
     private array $payload;
 
     private string $key;
@@ -15,8 +13,6 @@ class Config
     private ?string $id;
 
     private ?array $headers;
-
-    // Constructor de la clase Config
 
     public function __construct(
         array $payload,
@@ -31,8 +27,6 @@ class Config
         $this->id = $id;
         $this->headers = $headers;
     }
-
-    // Métodos de la clase Config
 
     public function getPayload(): array
     {
