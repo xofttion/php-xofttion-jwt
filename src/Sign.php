@@ -8,8 +8,6 @@ use Xofttion\JWT\Encode\Config as EncodeConfig;
 
 class Sign
 {
-    // Métodos estáticos de la clase Sign
-
     public static function generate(string $value, EncodeConfig $config): ?string
     {
         $signature = static::method($config->getMethod());

@@ -7,8 +7,6 @@ use Xofttion\JWT\Sign;
 
 class Service
 {
-    // Métodos estáticos de la clase Service
-
     public static function rfc7519(Config $config): string
     {
         $header = static::header($config);

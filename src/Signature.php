@@ -4,8 +4,6 @@ namespace Xofttion\JWT;
 
 class Signature
 {
-    // Constantes de la clase Signature
-
     public const HMAC_SHA256 = 'HS256';
 
     public const HMAC_SHA384 = 'HS384';
@@ -20,21 +18,15 @@ class Signature
 
     public const ECDSA_SHA256 = 'ES256';
 
-    // Atributos de la clase Signature
-
     private string $name;
 
     private string $algorithm;
-
-    // Constructor de la clase Signature
 
     private function __construct(string $name, string $algorithm)
     {
         $this->name = $name;
         $this->algorithm = $algorithm;
     }
-
-    // Métodos de la clase Signature
 
     public function getName(): string
     {
@@ -45,8 +37,6 @@ class Signature
     {
         return $this->algorithm;
     }
-
-    // Métodos estáticos de la clase Signature
 
     public static function factory(string $name): ?Signature
     {

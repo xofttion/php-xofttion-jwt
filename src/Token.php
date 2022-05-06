@@ -6,8 +6,6 @@ use stdClass;
 
 class Token
 {
-    // Atributos de la clase Token
-
     private array $segments;
 
     private stdClass $header;
@@ -15,8 +13,6 @@ class Token
     private stdClass $payload;
 
     private string $sign;
-
-    // Constructor de la clase Token
 
     public function __construct(
         array $segments,
@@ -29,8 +25,6 @@ class Token
         $this->payload = $payload;
         $this->sign = $sign;
     }
-
-    // Métodos de la clase Token
 
     public function getSegments(): array
     {
