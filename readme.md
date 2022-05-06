@@ -1,6 +1,6 @@
 ## Xofttion JWT
 
-Librería de Xofttion con funcionalidades para implementar JWT.
+Package JWT of Xofttion
 
 ## Instalación
 
